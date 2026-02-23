@@ -113,6 +113,14 @@
           </div>
           <div class="game-card-badge">순서</div>
         </button>
+        <button class="game-card" data-game="english" onclick="App.navigate('setup', 'english')">
+          <div class="game-card-icon">🔤</div>
+          <div class="game-card-info">
+            <h3>영어공부하기</h3>
+            <p>한↔영 용어를 익혀보세요</p>
+          </div>
+          <div class="game-card-badge">영어</div>
+        </button>
       </div>
 
       <!-- 실전문제 배너 -->
@@ -182,6 +190,16 @@
             <button class="chip active" data-value="20" onclick="App.selectCount(this)">20</button>
             <button class="chip" data-value="30" onclick="App.selectCount(this)">30</button>
             <button class="chip" data-value="50" onclick="App.selectCount(this)">50</button>
+          </div>
+        </div>
+
+        <!-- 방향 선택 (english 전용) -->
+        <div class="setup-section hidden" id="setup-direction-section">
+          <h3>출제 방향</h3>
+          <div class="chip-group" id="setup-direction">
+            <button class="chip active" data-value="ko2en" onclick="App.selectDirection(this)">한글→영어</button>
+            <button class="chip" data-value="en2ko" onclick="App.selectDirection(this)">영어→한글</button>
+            <button class="chip" data-value="random" onclick="App.selectDirection(this)">방향랜덤</button>
           </div>
         </div>
 
@@ -284,5 +302,6 @@
   <script src="js/game-hierarchy.js"></script>
   <script src="js/game-timeline.js"></script>
   <script src="js/game-exam.js"></script>
+  <script src="js/game-english.js"></script>
 </body>
 </html>

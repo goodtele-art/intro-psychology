@@ -44,6 +44,9 @@
   --game-exam: #E91E63;
   --game-exam-light: #F8BBD0;
   --game-exam-dark: #C2185B;
+  --game-english: #00BCD4;
+  --game-english-light: #B2EBF2;
+  --game-english-dark: #00838F;
 
   /* 피드백 */
   --correct: #27AE60;
@@ -1883,4 +1886,121 @@ body {
 [data-theme="dark"] .exam-source {
   background: rgba(233, 30, 99, 0.2) !important;
   color: #F8BBD0 !important;
+}
+
+/* --- English Study Game --- */
+.english-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.english-direction-badge {
+  display: inline-block;
+  background: var(--game-english);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+.english-prompt {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 8px 0 4px;
+  word-break: keep-all;
+}
+.english-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+.english-input-area {
+  margin: 16px 0;
+}
+.english-input {
+  width: 100%;
+  max-width: 360px;
+  padding: 14px 20px;
+  font-size: 1.15rem;
+  font-family: var(--font-family);
+  border: 2px solid rgba(0, 188, 212, 0.3);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  text-align: center;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.english-input:focus {
+  border-color: var(--game-english);
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.15);
+}
+.english-input.correct {
+  border-color: var(--correct);
+  background: var(--correct-light);
+}
+.english-input.wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-light);
+}
+.english-submit-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: #fff;
+  background: var(--game-english);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.english-submit-btn:hover {
+  background: var(--game-english-dark);
+  transform: translateY(-1px);
+}
+.english-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+.english-answer-reveal {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--correct);
+}
+.english-next-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: #fff;
+  background: var(--game-english);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.english-next-btn:hover {
+  background: var(--game-english-dark);
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .english-input {
+  border-color: rgba(0, 188, 212, 0.4);
+}
+[data-theme="dark"] .english-input.correct {
+  background: rgba(39, 174, 96, 0.15);
+}
+[data-theme="dark"] .english-input.wrong {
+  background: rgba(231, 76, 60, 0.15);
 }

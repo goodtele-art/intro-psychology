@@ -38,7 +38,8 @@ const App = (() => {
     crossword: { name: '십자말 퍼즐', icon: '🧩', color: '--game-crossword' },
     hierarchy: { name: '계층 분류', icon: '🌳', color: '--game-hierarchy' },
     timeline:  { name: '순서 배열', icon: '📅', color: '--game-timeline' },
-    exam:      { name: '실전문제 풀기', icon: '📋', color: '--game-exam' }
+    exam:      { name: '실전문제 풀기', icon: '📋', color: '--game-exam' },
+    english:   { name: '영어공부하기', icon: '🔤', color: '--game-english' }
   };
 
   // --- Data Loading ---
@@ -133,14 +134,26 @@ const App = (() => {
     const setupSections = document.querySelectorAll('.setup-section');
     const examInfo = document.getElementById('exam-info');
 
+    const directionSection = document.getElementById('setup-direction-section');
+
     if (gameType === 'exam') {
       // 실전문제: 카테고리/난이도/문제수 숨기고 안내 표시
       setupSections.forEach(s => s.classList.add('hidden'));
+      if (directionSection) directionSection.classList.add('hidden');
       if (examInfo) examInfo.classList.remove('hidden');
     } else {
       // 일반 게임: 설정 표시, exam 안내 숨기기
       setupSections.forEach(s => s.classList.remove('hidden'));
       if (examInfo) examInfo.classList.add('hidden');
+
+      // 방향 선택: english 게임만 표시
+      if (directionSection) {
+        if (gameType === 'english') {
+          directionSection.classList.remove('hidden');
+        } else {
+          directionSection.classList.add('hidden');
+        }
+      }
 
       // 카테고리 칩 생성
       const catContainer = document.getElementById('setup-categories');
@@ -157,7 +170,7 @@ const App = (() => {
     }
 
     // 기본 설정
-    currentConfig = { category: 'all', difficulty: 'easy', count: 20 };
+    currentConfig = { category: 'all', difficulty: 'easy', count: 20, direction: 'ko2en' };
 
     // 리더보드 표시
     const lbSetup = document.getElementById('setup-leaderboard');
@@ -194,6 +207,13 @@ const App = (() => {
     el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     currentConfig.count = parseInt(el.dataset.value);
+    Sound.click();
+  }
+
+  function selectDirection(el) {
+    el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    currentConfig.direction = el.dataset.value;
     Sound.click();
   }
 
@@ -266,7 +286,8 @@ const App = (() => {
       connect: typeof ConnectGame !== 'undefined' ? ConnectGame : null,
       crossword: typeof CrosswordGame !== 'undefined' ? CrosswordGame : null,
       hierarchy: typeof HierarchyGame !== 'undefined' ? HierarchyGame : null,
-      timeline: typeof TimelineGame !== 'undefined' ? TimelineGame : null
+      timeline: typeof TimelineGame !== 'undefined' ? TimelineGame : null,
+      english: typeof EnglishGame !== 'undefined' ? EnglishGame : null
     };
 
     const GameClass = gameMap[gameType];
@@ -387,6 +408,7 @@ const App = (() => {
     selectCategory,
     selectDifficulty,
     selectCount,
+    selectDirection,
     toggleTheme,
     saveProgress,
     updateHUD,
