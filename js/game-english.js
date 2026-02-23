@@ -10,6 +10,7 @@ const EnglishGame = (() => {
   let currentIndex = 0;
   let answered = false;
   let termResults = [];
+  let nextKeyHandler = null;
 
   function create(gameArea, gameConfig) {
     container = gameArea;
@@ -38,8 +39,27 @@ const EnglishGame = (() => {
   }
 
   function cleanup() {
+    removeNextKeyHandler();
     container = null;
     questions = [];
+  }
+
+  function bindNextKeyHandler() {
+    removeNextKeyHandler();
+    nextKeyHandler = (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && answered) {
+        e.preventDefault();
+        EnglishGame.next();
+      }
+    };
+    document.addEventListener('keydown', nextKeyHandler);
+  }
+
+  function removeNextKeyHandler() {
+    if (nextKeyHandler) {
+      document.removeEventListener('keydown', nextKeyHandler);
+      nextKeyHandler = null;
+    }
   }
 
   function generateQuestions(terms) {
@@ -84,6 +104,7 @@ const EnglishGame = (() => {
     }
 
     answered = false;
+    removeNextKeyHandler();
     const q = questions[currentIndex];
     App.updateHUD(currentIndex + 1, questions.length, ScoreManager.score);
 
@@ -162,6 +183,7 @@ const EnglishGame = (() => {
     `;
 
     App.updateHUD(currentIndex + 1, questions.length, ScoreManager.score);
+    bindNextKeyHandler();
   }
 
   function checkTypingAnswer(user, correct) {
@@ -239,6 +261,7 @@ const EnglishGame = (() => {
     `;
 
     App.updateHUD(currentIndex + 1, questions.length, ScoreManager.score);
+    bindNextKeyHandler();
   }
 
   function next() {
